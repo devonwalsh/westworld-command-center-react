@@ -19,7 +19,7 @@ class Headquarters extends Component {
           <Details selectedHost={this.props.selectedHost} changeHostStatus={this.props.changeHostStatus} />
         </Grid.Column>
         <Grid.Column width={3}>
-          <LogPanel />
+          <LogPanel activateButton={this.props.activateButton} activateAllHandler={this.props.activateAllHandler} />
         </Grid.Column>
       </Grid>
     )

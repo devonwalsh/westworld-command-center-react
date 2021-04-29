@@ -9,7 +9,8 @@ class App extends Component {
   state = {
     areas: [],
     hosts: [],
-    selectedHost: {}
+    selectedHost: {},
+    activateButton: true
   }
 
   componentDidMount() {
@@ -41,6 +42,25 @@ class App extends Component {
     this.setState({...this.state, hosts: updatedHosts})
   } 
 
+  activateAllHandler = () => {
+    let updatedHosts;
+
+    if (this.state.activateButton === true) {
+      updatedHosts = this.state.hosts.map(host => {
+        host.active = true
+        return host
+      })
+    }
+    else {
+      updatedHosts = this.state.hosts.map(host => {
+        host.active = false
+        return host
+      })
+    }
+
+    this.setState({...this.state, hosts: updatedHosts, activateButton: !this.state.activateButton})
+  }
+
   // As you go through the components given you'll see a lot of functional components.
   // But feel free to change them to whatever you want.
   // It's up to you whether they should be stateful or not.
@@ -59,6 +79,8 @@ class App extends Component {
           selectHost={this.selectHost} 
           selectedHost={this.state.selectedHost} 
           changeHostStatus={this.changeHostStatus}
+          activateButton={this.state.activateButton}
+          activateAllHandler={this.activateAllHandler}
         />
       </Segment>
     )
