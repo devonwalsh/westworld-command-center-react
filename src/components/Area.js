@@ -9,7 +9,6 @@ const Area = ({areaData, hostData, selectHost}) => {
   return (<div className='area' id={areaData.name}>
     <h3 className='labels'>{areaData.name}</h3>
 
-    {/* See Checkpoint 1 item 2 in the Readme for a clue as to what goes here */}
     <HostList 
       hosts={areaHosts} 
       selectHost={selectHost}

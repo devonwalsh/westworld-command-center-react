@@ -50,9 +50,7 @@ class HostInfo extends Component {
                 <Radio
                   onChange={() => this.props.changeHostStatus(this.props.host)}
                   label={this.props.host.active ? "Active" : "Decommissioned"}
-                  //{/* Sometimes the label should take "Decommissioned". How are we going to conditionally render that? */}
                   checked={this.props.host.active ? true : false }
-                  //{/* Checked takes a boolean and determines what position the switch is in. Should it always be true? */}
                   slider
                 />
               </Card.Meta>

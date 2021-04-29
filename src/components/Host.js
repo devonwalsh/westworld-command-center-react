@@ -19,7 +19,6 @@ const Host = props => {
   return(
     <Card
       className="host"
-      //{/* NOTE: The className "host selected" renders a different style than simply "host". */}
       image={props.host.imageUrl}
       onClick={e => clickHandler(e)}
       raised

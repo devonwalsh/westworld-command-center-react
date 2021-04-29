@@ -13,19 +13,13 @@ class Headquarters extends Component {
     return(
       <Grid celled='internally'>
         <Grid.Column width={8}>
-
-        {/* Something goes here.... */}
-        <ColdStorage hosts={this.props.hosts} selectHost={this.props.selectHost} />
-
+          <ColdStorage hosts={this.props.hosts} selectHost={this.props.selectHost} />
         </Grid.Column>
         <Grid.Column width={5}>
           <Details selectedHost={this.props.selectedHost} changeHostStatus={this.props.changeHostStatus} />
         </Grid.Column>
         <Grid.Column width={3}>
-
-        {/* and here. Take visual cues from the screenshot/video in the Readme. */}
-        <LogPanel />
-
+          <LogPanel />
         </Grid.Column>
       </Grid>
     )
