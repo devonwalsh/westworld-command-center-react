@@ -6,8 +6,11 @@ const Area = ({areaData, hostData, selectHost}) => {
 
   const areaHosts = hostData.filter(host => host.area === areaData.name && host.active === true)
 
+  let areaName = areaData.name.split("_")
+  let areaNameCapitalized = areaName.map(word => word.charAt(0).toUpperCase() + word.substr(1)).join(" ")
+
   return (<div className='area' id={areaData.name}>
-    <h3 className='labels'>{areaData.name}</h3>
+    <h3 className='labels'>{areaNameCapitalized}</h3>
 
     <HostList 
       hosts={areaHosts} 
