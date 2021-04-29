@@ -6,7 +6,12 @@ const HostList = props => {
 
   return(
     <Card.Group itemsPerRow={6}>
-      {props.hosts.map((host, idx) => <Host key={idx} host={host} selectHost={props.selectHost} />)}
+      {props.hosts.map((host, idx) => 
+        <Host 
+          key={idx} 
+          host={host} 
+          selectHost={props.selectHost}
+        />)}
     </Card.Group>
   )
 }

@@ -12,6 +12,7 @@ const WestworldMap = props => {
         key={idx} 
         areaData={area} 
         hostData={props.hosts} 
+        selectHost={props.selectHost}
       />)}
     </Segment>
   )

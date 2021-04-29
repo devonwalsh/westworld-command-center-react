@@ -40,7 +40,11 @@ class App extends Component {
     return (
       <Segment id='app'>
         {/* What components should go here? Check out Checkpoint 1 of the Readme if you're confused */}
-        <WestworldMap areas={this.state.areas} hosts={this.state.hosts} />
+        <WestworldMap 
+          areas={this.state.areas} 
+          hosts={this.state.hosts} 
+          selectHost={this.selectHost}
+        />
         <Headquarters 
           hosts={this.state.hosts} 
           selectHost={this.selectHost} 
