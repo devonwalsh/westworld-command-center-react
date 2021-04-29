@@ -4,7 +4,7 @@ import HostList from './HostList';
 
 const Area = ({areaData, hostData, selectHost}) => {
 
-  const areaHosts = hostData.filter(host => host.area === areaData.name)
+  const areaHosts = hostData.filter(host => host.area === areaData.name && host.active === true)
 
   return (<div className='area' id={areaData.name}>
     <h3 className='labels'>{areaData.name}</h3>

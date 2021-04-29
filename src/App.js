@@ -28,8 +28,17 @@ class App extends Component {
     this.setState({...this.state, selectedHost: host })
   }
 
-  manageHost = () => {
-    this.setState({...this.state, selectedHost: {...this.state.selectedHost, active: !this.state.selectedHost.active}})
+  changeHostStatus = selectedHost => {
+    selectedHost.active = !selectedHost.active
+
+    let updatedHosts = this.state.hosts.map(host => {
+      if (host.id === selectedHost.id) {
+        return selectedHost
+      }
+      else return host
+    })
+
+    this.setState({...this.state, hosts: updatedHosts})
   } 
 
   // As you go through the components given you'll see a lot of functional components.
@@ -49,7 +58,7 @@ class App extends Component {
           hosts={this.state.hosts} 
           selectHost={this.selectHost} 
           selectedHost={this.state.selectedHost} 
-          manageHost={this.manageHost}
+          changeHostStatus={this.changeHostStatus}
         />
       </Segment>
     )

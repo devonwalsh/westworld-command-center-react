@@ -19,7 +19,7 @@ class Headquarters extends Component {
 
         </Grid.Column>
         <Grid.Column width={5}>
-          <Details selectedHost={this.props.selectedHost} manageHost={this.props.manageHost} />
+          <Details selectedHost={this.props.selectedHost} changeHostStatus={this.props.changeHostStatus} />
         </Grid.Column>
         <Grid.Column width={3}>
 
