@@ -34,7 +34,7 @@ class HostInfo extends Component {
       <Grid>
         <Grid.Column width={6}>
           <Image
-            src={ /* pass in the right image here */ }
+            src={this.props.host.imageUrl}
             floated='left'
             size='small'
             className="hostImg"
@@ -44,16 +44,15 @@ class HostInfo extends Component {
           <Card>
             <Card.Content>
               <Card.Header>
-                {"Bob"} | { true ? <Icon name='man' /> : <Icon name='woman' />}
-                { /* Think about how the above should work to conditionally render the right First Name and the right gender Icon */ }
+                {this.props.host.firstName} | { this.props.host.gender === 'Male' ? <Icon name='man' /> : <Icon name='woman' />}
               </Card.Header>
               <Card.Meta>
                 <Radio
-                  onChange={this.toggle}
-                  label={"Active"}
-                  {/* Sometimes the label should take "Decommissioned". How are we going to conditionally render that? */}
-                  checked={true}
-                  {/* Checked takes a boolean and determines what position the switch is in. Should it always be true? */}
+                  onChange={() => this.props.manageHost()}
+                  label={this.props.host.active ? "Active" : "Decommissioned"}
+                  //{/* Sometimes the label should take "Decommissioned". How are we going to conditionally render that? */}
+                  checked={this.props.host.active ? true : false }
+                  //{/* Checked takes a boolean and determines what position the switch is in. Should it always be true? */}
                   slider
                 />
               </Card.Meta>
