@@ -42,6 +42,19 @@ class App extends Component {
     this.setState({...this.state, hosts: updatedHosts})
   } 
 
+  moveHost = (selectedHost, newArea) => {
+    selectedHost.area = newArea
+
+    let updatedHosts = this.state.hosts.map(host => {
+      if (host.id === selectedHost.id) {
+        return selectedHost
+      }
+      else return host
+    })
+
+    this.setState({...this.state, hosts: updatedHosts})
+  }
+
   activateAllHandler = () => {
     let updatedHosts;
 
@@ -75,10 +88,12 @@ class App extends Component {
           selectHost={this.selectHost}
         />
         <Headquarters 
+          areas={this.state.areas}
           hosts={this.state.hosts} 
           selectHost={this.selectHost} 
           selectedHost={this.state.selectedHost} 
           changeHostStatus={this.changeHostStatus}
+          moveHost={this.moveHost}
           activateButton={this.state.activateButton}
           activateAllHandler={this.activateAllHandler}
         />

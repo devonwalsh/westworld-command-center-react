@@ -8,7 +8,12 @@ const Details = props => {
 
   const renderSomething = () => {
     if (Object.keys(props.selectedHost).length > 0) {
-      return <HostInfo host={props.selectedHost} changeHostStatus={props.changeHostStatus} />
+      return <HostInfo 
+        areas={props.areas}
+        host={props.selectedHost} 
+        changeHostStatus={props.changeHostStatus}
+        moveHost={props.moveHost}
+      />
     }
     else {
       return <Image size='medium' src={Images.westworldLogo}/>

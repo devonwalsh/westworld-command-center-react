@@ -4,12 +4,33 @@ import { Radio, Icon, Card, Grid, Image, Dropdown, Divider } from 'semantic-ui-r
 
 
 class HostInfo extends Component {
+
+  getAreaOptions = () => {
+    let areaObject = this.props.areas.map(area => {
+      let areaName = area.name.split("_")
+      let areaNameCapitalized = areaName.map(word => word.charAt(0).toUpperCase() + word.substr(1)).join(" ")
+
+      let areaData = {
+        key: area.name,
+        text: areaNameCapitalized,
+        value: area.name
+      }
+      
+      return(areaData)
+    })
+
+    let areaDataSorted = areaObject.sort((a,b) => {
+      if (a.text > b.text) { return 1 }
+      else if (a.text < b.text) { return -1 }
+      else { return 0 }
+    })
+
+    this.setState({...this.state, options: areaDataSorted})
+  }
+
   state = {
-    options: [
-      {key: "some_area", text: "Some Area", value: "some_area"},
-      {key: "another_area", text: "Another Area", value: "another_area"}
-    ],
-    value: "some_area"
+    options: [],
+    value: ''
     // This state is just to show how the dropdown component works.
     // Options have to be formatted in this way (array of objects with keys of: key, text, value)
     // Value has to match the value in the object to render the right text.
@@ -17,7 +38,9 @@ class HostInfo extends Component {
     // IMPORTANT: But whether it should be stateful or not is entirely up to you. Change this component however you like.
   }
 
-
+  componentDidMount() {
+    this.getAreaOptions()
+  }
 
   handleChange = (e, {value}) => {
     // the 'value' attribute is given via Semantic's Dropdown component.
@@ -58,8 +81,8 @@ class HostInfo extends Component {
               <Divider />
               Current Area:
               <Dropdown
-                onChange={this.handleChange}
-                value={this.state.value}
+                onChange={(e, data) => this.props.moveHost(this.props.host, data.value)}
+                value={this.props.host.area}
                 options={this.state.options}
                 selection
               />

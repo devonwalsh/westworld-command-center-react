@@ -13,13 +13,24 @@ class Headquarters extends Component {
     return(
       <Grid celled='internally'>
         <Grid.Column width={8}>
-          <ColdStorage hosts={this.props.hosts} selectHost={this.props.selectHost} />
+          <ColdStorage 
+            hosts={this.props.hosts} 
+            selectHost={this.props.selectHost} 
+          />
         </Grid.Column>
         <Grid.Column width={5}>
-          <Details selectedHost={this.props.selectedHost} changeHostStatus={this.props.changeHostStatus} />
+          <Details 
+            areas={this.props.areas}
+            selectedHost={this.props.selectedHost} 
+            changeHostStatus={this.props.changeHostStatus} 
+            moveHost={this.props.moveHost}
+          />
         </Grid.Column>
         <Grid.Column width={3}>
-          <LogPanel activateButton={this.props.activateButton} activateAllHandler={this.props.activateAllHandler} />
+          <LogPanel 
+            activateButton={this.props.activateButton} 
+            activateAllHandler={this.props.activateAllHandler} 
+          />
         </Grid.Column>
       </Grid>
     )
