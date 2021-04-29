@@ -4,7 +4,7 @@ import HostList from './HostList';
 
 const Area = ({areaData, hostData, selectHost}) => {
 
-  const areaHosts = hostData.filter(host => host.area === areaData.name && host.active === true)
+  const activeHosts = hostData.filter(host => host.active === true)
 
   let areaName = areaData.name.split("_")
   let areaNameCapitalized = areaName.map(word => word.charAt(0).toUpperCase() + word.substr(1)).join(" ")
@@ -13,7 +13,7 @@ const Area = ({areaData, hostData, selectHost}) => {
     <h3 className='labels'>{areaNameCapitalized}</h3>
 
     <HostList 
-      hosts={areaHosts} 
+      hosts={activeHosts} 
       selectHost={selectHost}
     />
   
@@ -23,9 +23,9 @@ const Area = ({areaData, hostData, selectHost}) => {
 
 Area.propTypes = {
   hosts: function(props, propName, componentName){
-    if(props.hostData.length > props.limit){
+    if(props.hostData.length > props.areaData.limit){
       throw Error(
-        `HEY!! You got too many hosts in ${props.name}. The limit for that area is ${props.limit}. You gotta fix that!`
+        `HEY!! You got too many hosts in ${props.areaData.name}. The limit for that area is ${props.areaData.limit}. You gotta fix that!`
       )
     }
   }
