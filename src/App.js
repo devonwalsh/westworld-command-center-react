@@ -3,6 +3,7 @@ import './stylesheets/App.css'
 import { Segment } from 'semantic-ui-react';
 import WestworldMap from './components/WestworldMap';
 import Headquarters from './components/Headquarters';
+import {Log} from './services/Log';
 
 
 class App extends Component {
@@ -10,7 +11,8 @@ class App extends Component {
     areas: [],
     hosts: [],
     selectedHost: {},
-    activateButton: true
+    activateButton: true,
+    logs: []
   }
 
   componentDidMount() {
@@ -31,6 +33,7 @@ class App extends Component {
 
   changeHostStatus = selectedHost => {
     selectedHost.active = !selectedHost.active
+    let action = selectedHost.active ? "Activated" : "Decommissioned"
 
     let updatedHosts = this.state.hosts.map(host => {
       if (host.id === selectedHost.id) {
@@ -39,24 +42,52 @@ class App extends Component {
       else return host
     })
 
-    this.setState({...this.state, hosts: updatedHosts})
+    this.setState({
+      ...this.state, 
+      hosts: updatedHosts,
+      logs: [Log.notify(`${action} ${selectedHost.firstName}`), ...this.state.logs]
+    })
   } 
 
+  formatAreaName = area => {
+    let areaName = area.split("_")
+    let areaNameCapitalized = areaName.map(word => word.charAt(0).toUpperCase() + word.substr(1)).join(" ")
+    return areaNameCapitalized
+  }
+
   moveHost = (selectedHost, newArea) => {
-    selectedHost.area = newArea
+    let areaHostCount = this.state.hosts.filter(host => host.area === newArea).length
+    let areaLimit = this.state.areas.find(area => area.name === newArea).limit
 
-    let updatedHosts = this.state.hosts.map(host => {
-      if (host.id === selectedHost.id) {
-        return selectedHost
-      }
-      else return host
-    })
+    let areaNameCapitalized = this.formatAreaName(newArea)
+    
+    if (areaHostCount === areaLimit) {
+      this.setState({
+        ...this.state, 
+        logs: [Log.error(`Too many hosts. Cannot add ${selectedHost.firstName} to ${areaNameCapitalized}`), ...this.state.logs]
+      })
+    }
+    else {
+      selectedHost.area = newArea
 
-    this.setState({...this.state, hosts: updatedHosts})
+      let updatedHosts = this.state.hosts.map(host => {
+        if (host.id === selectedHost.id) {
+          return selectedHost
+        }
+        else return host
+      })
+
+      this.setState({
+        ...this.state, 
+        hosts: updatedHosts, 
+        logs: [Log.notify(`${selectedHost.firstName} set in area ${areaNameCapitalized}`), ...this.state.logs]
+      })
+    }
   }
 
   activateAllHandler = () => {
     let updatedHosts;
+    let action = this.state.activateButton ? Log.warn("Activating all hosts!") : Log.notify("Decommissiong all hosts.")
 
     if (this.state.activateButton === true) {
       updatedHosts = this.state.hosts.map(host => {
@@ -71,21 +102,23 @@ class App extends Component {
       })
     }
 
-    this.setState({...this.state, hosts: updatedHosts, activateButton: !this.state.activateButton})
+    this.setState({
+      ...this.state, 
+      hosts: updatedHosts, 
+      activateButton: !this.state.activateButton,
+      logs: [action, ...this.state.logs]
+    })
   }
-
-  // As you go through the components given you'll see a lot of functional components.
-  // But feel free to change them to whatever you want.
-  // It's up to you whether they should be stateful or not.
 
   render(){
     return (
       <Segment id='app'>
-        {/* What components should go here? Check out Checkpoint 1 of the Readme if you're confused */}
         <WestworldMap 
           areas={this.state.areas} 
           hosts={this.state.hosts} 
           selectHost={this.selectHost}
+          selectedHost={this.state.selectedHost}
+          formatAreaName={this.formatAreaName}
         />
         <Headquarters 
           areas={this.state.areas}
@@ -94,6 +127,7 @@ class App extends Component {
           selectedHost={this.state.selectedHost} 
           changeHostStatus={this.changeHostStatus}
           moveHost={this.moveHost}
+          logs={this.state.logs}
           activateButton={this.state.activateButton}
           activateAllHandler={this.activateAllHandler}
         />

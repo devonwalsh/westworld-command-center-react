@@ -14,6 +14,8 @@ const WestworldMap = props => {
         areaData={area} 
         hostData={props.hosts.filter(host => host.area === area.name)} 
         selectHost={props.selectHost}
+        selectedHost={props.selectedHost}
+        formatAreaName={props.formatAreaName}
       />)}
     </Segment>
   )

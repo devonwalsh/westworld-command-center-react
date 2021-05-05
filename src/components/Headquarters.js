@@ -28,6 +28,7 @@ class Headquarters extends Component {
         </Grid.Column>
         <Grid.Column width={3}>
           <LogPanel 
+            logs={this.props.logs}
             activateButton={this.props.activateButton} 
             activateAllHandler={this.props.activateAllHandler} 
           />
